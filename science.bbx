@@ -1,5 +1,5 @@
 \ProvidesFile{science.bbx}
-[\abx@bbxid $Id: science.bbx,v 0.9 2010/02/16 14:00:00 joseph beta $]
+[\abx@bbxid $Id: science.bbx,v 0.9a 2010/03/30 14:00:00 joseph beta $]
 
 \ExecuteBibliographyOptions{labelnumber,maxnames=5,useprefix=true}
 
@@ -381,7 +381,7 @@
   \newunit
   \printfield{note}%
   \newunit
-  \usebibmacro{organization+location+year}%
+  \printlist{organization+location+date}%
   \newunit
   \printfield{addendum}%
   \newunit
