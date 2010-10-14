@@ -1,5 +1,5 @@
 \ProvidesFile{science.bbx}
-[\abx@bbxid $Id: science.bbx,v 0.9a 2010/03/30 14:00:00 joseph beta $]
+[2010/10/14 v0.9b biblatex bibliography style]
 
 \ExecuteBibliographyOptions{labelnumber,maxnames=5,useprefix=true}
 
@@ -207,7 +207,7 @@
   \printfield{year}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -340,7 +340,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}} 
 
@@ -362,7 +362,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -384,7 +384,7 @@
   \printlist{organization+location+date}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -402,7 +402,7 @@
   \usebibmacro{organization+location+year}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -420,7 +420,7 @@
   \printfield{year}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -440,7 +440,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -459,7 +459,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -483,7 +483,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -503,7 +503,7 @@
   \usebibmacro{volume+chapter+pages}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
   
@@ -521,7 +521,7 @@
   \printfield{year+url}%
   \newunit
   \printfield{addendum}%
-  \newunit
+  \setunit{\bibpagerefpunct}%
   \usebibmacro{pageref}%
   \usebibmacro{finentry}}
 
