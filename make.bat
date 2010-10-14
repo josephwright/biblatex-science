@@ -19,11 +19,11 @@
   rem The name of the package to create should be set here: here, the
   rem example package "testpkg" is in use
 
-  set PACKAGE=biblatex-nature
+  set PACKAGE=biblatex-science
 
   rem The biblatex styles included
 
-  set STYLES=nature
+  set STYLES=science
 
   rem The file types for inclusion in the archive files: note that a CTAN
   rem archive should not contain "unpacked" files. Typeset files and their
