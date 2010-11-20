@@ -4,6 +4,8 @@
 ################################################################
 ################################################################
 
+.SILENT:
+
 ################################################################
 # Default with no target is to give help                       #
 ################################################################
@@ -47,7 +49,8 @@ PACKAGEROOT := latex/$(PACKAGE)
 AUXFILES = \
 	aux  \
 	bbl  \
-	blg \
+	bcf  \
+	blg  \
 	cmds \
 	glo  \
 	gls  \
@@ -58,7 +61,8 @@ AUXFILES = \
 	log  \
 	out  \
 	tmp  \
-	toc  
+	toc  \
+	xml
 		
 CLEAN = \
 	gz  \
@@ -69,7 +73,7 @@ CLEAN = \
 	zip 
 
 DOCS     = 
-STYLES   = nature
+STYLES   = science
 TDS      = latex/$(PACKAGE)
 
 # Even if files exist, use the rules here
