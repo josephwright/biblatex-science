@@ -23,7 +23,7 @@
 
 % Modify the name format
 \DeclareNameFormat{default}{%
-  \usebibmacro{name:last-first}{#1}{#4}{#5}{#7}%
+  \usebibmacro{name:first-last}{#1}{#4}{#5}{#7}%
   \usebibmacro{name:andothers}%
 }
 
@@ -31,10 +31,13 @@
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
 
 % Custom field formats 
+\DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
 
 % Simple modifications to punctuation, etc.
 \let\finalnamedelim\multinamedelim
 \renewcommand*\intitlepunct{\addspace}
+\renewcommand*\newunitpunct{\addcomma\space}
 
 % Bibliography strings
 \DefineBibliographyStrings{english}{
@@ -44,10 +47,58 @@
 }
 
 % Bibliography macros
+\newbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+    {}
+    {%
+      \newunit
+      \printfield{series}%
+      \setunit{\addspace}%
+    }%
+  \printfield{volume}%
+  \newunit
+  \usebibmacro{issue}%
+  \newunit
+}
 
 % New bibliography drivers, using the required order of fields. These
 % are mainly copied from standard.bbx then modified.
-
+\DeclareBibliographyDriver{article}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{bytranslator+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit\newblock
+  \usebibmacro{journal+issuetitle}%
+  \newunit
+  \usebibmacro{byeditor+others}%
+  \newunit
+  \usebibmacro{note+pages}%
+  \newunit
+  \iftoggle{bbx:isbn}
+    {\printfield{issn}}
+    {}%
+  \newunit\newblock
+  \iffieldundef{pages}
+    {\usebibmacro{doi+eprint+url}}
+    {}%
+  \setunit{\addspace}\newblock
+  \usebibmacro{issue+date}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
 
 %% 
 %% Copyright (C) 2010,2011 by
