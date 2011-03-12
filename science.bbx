@@ -31,6 +31,11 @@
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
 
 % Custom field formats 
+\DeclareFieldFormat{edition}{%
+  \ifinteger{#1}
+    {\bibstring{edition}~#1}
+    {#1}%
+}
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
 
@@ -41,9 +46,9 @@
 
 % Bibliography strings
 \DefineBibliographyStrings{english}{
-  editor   = Ed\adddot       ,
-  editors  = Eds\adddot      ,
-  patentus = US Patent       ,
+  editor   = Ed\adddot  ,
+  editors  = Eds\adddot ,
+  patentus = US Patent  ,
 }
 
 % Bibliography macros
@@ -61,6 +66,19 @@
   \newunit
   \usebibmacro{issue}%
   \newunit
+}
+
+\renewbibmacro*{publisher+location+date}{%
+  \nopunct
+  \printtext[parens]{%                     
+    \printlist{publisher}%
+    \newunit
+    \printlist{location}%
+    \newunit
+    \printfield{edition}%
+    \newunit
+    \usebibmacro{date}%
+  }%
 }
 
 % New bibliography drivers, using the required order of fields. These
@@ -92,7 +110,47 @@
     {\usebibmacro{doi+eprint+url}}
     {}%
   \setunit{\addspace}\newblock
-  \usebibmacro{issue+date}%
+  \iffieldundef{year}
+    {\printfield{howpublished}}
+    {\usebibmacro{issue+date}}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{book}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{volumes}%
+  \newunit\newblock
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \printfield{volume}
+  \newunit
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
