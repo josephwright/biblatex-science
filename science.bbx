@@ -15,10 +15,10 @@
 
 % Alter settings that carry through from biblatex
 \ExecuteBibliographyOptions{
-  firstinits       ,
-  maxnames     = 5 ,
-  maxcitenames = 2 ,
-  useprefix        ,
+  firstinits           ,
+  maxnames     = 5     ,
+  maxcitenames = 2     ,
+  useprefix            ,
 }
 
 % Modify the name format
@@ -38,8 +38,10 @@
 }
 \DeclareFieldFormat[inproceedings]{booktitle}{#1}
 \DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat[proceedings]{title}{#1}
+\DeclareFieldFormat[report]{title}{\mkbibquote{#1}}
 \DeclareFieldFormat{url}{\url{#1}}
-\DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
+\DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
 
 % Simple modifications to punctuation, etc.
 \let\finalnamedelim\multinamedelim
@@ -69,10 +71,41 @@
       \printfield{venue}%
       \newunit
       \iffieldundef{eventyear}
-        {\printdate}
-        {\printeventdate}%
+        {%
+          \printdate
+          \clearfield{year}%
+        }
+        {%
+          \printeventdate
+          \clearfield{eventyear}%
+        }%
     }%
   \newunit
+}
+
+\renewbibmacro*{institution+location+date}{%
+  \ifboolexpr{
+    test {\iflistundef{institution}}
+    and
+    test {\iflistundef{location}}
+    and
+    test {\iffieldundef{edition}}
+    and
+    test {\iffieldundef{date}}
+  }
+    {}
+    {%
+      \nopunct
+      \printtext[parens]{%                     
+        \printlist{institution}%
+        \newunit
+        \printlist{location}%
+        \newunit
+        \printfield{edition}%
+        \newunit
+        \usebibmacro{date}%
+      }%
+    }%
 }
 
 \newbibmacro*{journal+issuetitle}{%
@@ -92,16 +125,28 @@
 }
 
 \renewbibmacro*{publisher+location+date}{%
-  \nopunct
-  \printtext[parens]{%                     
-    \printlist{publisher}%
-    \newunit
-    \printlist{location}%
-    \newunit
-    \printfield{edition}%
-    \newunit
-    \usebibmacro{date}%
-  }%
+  \ifboolexpr{
+    test {\iflistundef{publisher}}
+    and
+    test {\iflistundef{location}}
+    and
+    test {\iffieldundef{edition}}
+    and
+    test {\iffieldundef{date}}
+  }
+    {}
+    {%
+      \nopunct
+      \printtext[parens]{%                     
+        \printlist{publisher}%
+        \newunit
+        \printlist{location}%
+        \newunit
+        \printfield{edition}%
+        \newunit
+        \usebibmacro{date}%
+      }%
+    }%
 }
 
 % New bibliography drivers, using the required order of fields. These
@@ -390,6 +435,73 @@
   \newunit
   \nopunct
   \printfield[parens]{year}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{periodical}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \printfield{issuetitle}%
+  \newunit
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{maintitle+title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{volumes}%
+  \newunit\newblock
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \usebibmacro{publisher+location+date}%
+  \newunit\newblock
+  \printfield{volume}
+  \newunit
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \iftoggle{bbx:isbn}
+    {\printfield{isbn}}
+    {}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{thesis}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author}%
+  \setunit{\labelnamepunct}\newblock
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \printfield{note}%
+  \newunit\newblock
+  \printfield{type}%
+  \newunit\newblock
+  \printlist{institution}%
+  \newunit
+  \printdate
+  \newunit\newblock
+  \usebibmacro{chapter+pages}%
+  \newunit
+  \printfield{pagetotal}%
+  \newunit\newblock
+  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
