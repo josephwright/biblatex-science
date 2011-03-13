@@ -13,12 +13,19 @@
 % Load the standard style to avoid copy-pasting unnecessary material
 \RequireBibliographyStyle{numeric-comp}
 
+% Additional options
+\newtoggle{bbx:article-title}
+\DeclareBibliographyOption{article-title}[true]{%
+  \settoggle{bbx:article-title}{#1}%
+}
+
 % Alter settings that carry through from biblatex
 \ExecuteBibliographyOptions{
-  firstinits           ,
-  maxnames     = 5     ,
-  maxcitenames = 2     ,
-  useprefix            ,
+  article-title = false ,
+  firstinits            ,
+  maxnames      = 5     ,
+  maxcitenames  = 2     ,
+  useprefix             ,
 }
 
 % Modify the name format
@@ -39,6 +46,7 @@
 \DeclareFieldFormat[inproceedings]{booktitle}{#1}
 \DeclareFieldFormat[article]{pages}{#1}
 \DeclareFieldFormat[proceedings]{title}{#1}
+\DeclareFieldFormat[article]{title}{#1\adddot\space\nopunct}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1}}
 \DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
@@ -156,6 +164,10 @@
   \usebibmacro{begentry}%
   \usebibmacro{author/translator+others}%
   \setunit{\labelnamepunct}\newblock
+  \iftoggle{bbx:article-title}
+    {\usebibmacro{title}}
+    {}%
+  \newunit
   \printlist{language}%
   \newunit\newblock
   \usebibmacro{byauthor}%
