@@ -34,6 +34,22 @@
   \usebibmacro{name:andothers}%
 }
 
+\newbibmacro*{name:andothers}{%
+  \ifboolexpr{
+    test {\ifnumequal{\value{listcount}}{\value{liststop}}}
+    and
+    test \ifmorenames
+  }
+    {%
+      \ifnumgreater{\value{liststop}}{1}
+        {\finalandcomma}
+        {}%
+      \andothersdelim
+      \bibstring[\mkbibemph]{andothers}%
+    }
+    {}%
+}
+
 % Field formats for the bibliography environment
 \DeclareFieldFormat{labelnumberwidth}{#1\adddot}
 
