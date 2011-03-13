@@ -38,6 +38,7 @@
 }
 \DeclareFieldFormat[inproceedings]{booktitle}{#1}
 \DeclareFieldFormat[article]{pages}{#1}
+\DeclareFieldFormat{url}{\url{#1}}
 \DeclareFieldFormat[article]{volume}{\mkbibbold{#1}}
 
 % Simple modifications to punctuation, etc.
@@ -321,6 +322,43 @@
     {}%
   \newunit\newblock
   \usebibmacro{doi+eprint+url}%
+  \newunit\newblock
+  \usebibmacro{addendum+pubstate}%
+  \setunit{\bibpagerefpunct}\newblock
+  \usebibmacro{pageref}%
+  \usebibmacro{finentry}%
+}
+
+\DeclareBibliographyDriver{online}{%
+  \usebibmacro{bibindex}%
+  \usebibmacro{begentry}%
+  \usebibmacro{author/editor+others/translator+others}%
+  \setunit{\labelnamepunct}\newblock
+  \usebibmacro{title}%
+  \newunit
+  \printlist{language}%
+  \newunit\newblock
+  \usebibmacro{byauthor}%
+  \newunit\newblock
+  \usebibmacro{byeditor+others}%
+  \newunit\newblock
+  \printfield{version}%
+  \newunit
+  \printfield{note}%
+  \newunit\newblock
+  \printlist{organization}%
+  \newunit\newblock
+  \iftoggle{bbx:eprint}
+    {\usebibmacro{eprint}}
+    {}%
+  \nopunct
+  \printtext[parens]{%
+    \iffieldundef{year}
+      {\printfield{urlyear}}
+      {\usebibmacro{date}}%
+    \setunit*{\addsemicolon\space}%
+    \printfield{url}%
+  }%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
