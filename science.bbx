@@ -34,7 +34,7 @@
   \usebibmacro{name:andothers}%
 }
 
-\newbibmacro*{name:andothers}{%
+\renewbibmacro*{name:andothers}{%
   \ifboolexpr{
     test {\ifnumequal{\value{listcount}}{\value{liststop}}}
     and
@@ -132,7 +132,7 @@
     }%
 }
 
-\newbibmacro*{journal+issuetitle}{%
+\renewbibmacro*{journal+issuetitle}{%
   \usebibmacro{journal}%
   \setunit*{\addspace}%
   \iffieldundef{series}
