@@ -68,7 +68,18 @@
 \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
 
 % Simple modifications to punctuation, etc.
-\let\finalnamedelim\multinamedelim
+\renewcommand*{\finalnamedelim}{%
+  \ifcurrentname{labelname}
+    {%
+      \ifnumgreater{\value{liststop}}{2}
+        {\finalandcomma}
+        {}%
+      \addspace
+      \bibstring{and}%
+      \space
+    }
+    {\multinamedelim}%
+}
 \renewcommand*\intitlepunct{\addspace}
 \renewcommand*\newunitpunct{\addcomma\space}
 
