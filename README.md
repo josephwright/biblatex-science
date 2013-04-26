@@ -1,10 +1,15 @@
-----------------------------------------------------------------
-biblatex-science --- The Science bibliography style for biblatex
-Maintained by Joseph Wright
-E-mail: joseph.wright@morningstar2.co.uk
-Released under the LaTeX Project Public License v1.3c or later
-See http://www.latex-project.org/lppl.txt
-----------------------------------------------------------------
+biblatex-science - A biblatex implementation of the Science bibliography style
+==============================================================================
 
-The biblatex-science package provides a bibliography style for
-biblatex following the requirements of the journal Science. 
+The `biblatex-science` package provides an implementation of
+the bibliography style of the journal Science for `biblatex`. This
+implementation follows standard` biblatex` conventions, and can
+be used simply by loading `biblatex` with the appropriate option
+
+    \usepackage[style=science]{biblatex}
+   
+A demonstration database is provided to show how to format
+input for the style. 
+
+The `biblatex-science` style requires `biblatex` 1.2 or later,
+and works with both BibTeX and Biber as the database back-end.
