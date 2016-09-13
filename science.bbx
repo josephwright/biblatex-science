@@ -25,6 +25,7 @@
   giveninits            ,
   maxnames      = 5     ,
   maxcitenames  = 2     ,
+  urldate       = year  ,
   useprefix             ,
 }
 
@@ -79,6 +80,7 @@
 \DeclareFieldFormat[article]{title}{#1\adddot\space\nopunct}
 \DeclareFieldFormat[report]{title}{\mkbibquote{#1}}
 \DeclareFieldFormat{url}{\url{#1}}
+\DeclareFieldFormat{urldate}{#1}
 \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
 
 % Simple modifications to punctuation, etc.
@@ -197,6 +199,16 @@
       }%
     }%
 }
+
+\renewbibmacro*{url+urldate}{%
+  \iffieldundef{url}
+    {}
+    {%
+      \printtext[parens]{%
+        \usebibmacro{urldate}%
+        \setunit*{\addsemicolon\space}%
+         \usebibmacro{url}%
+     }}}
 
 % New bibliography drivers, using the required order of fields. These
 % are mainly copied from standard.bbx then modified.
@@ -462,13 +474,7 @@
     {\usebibmacro{eprint}}
     {}%
   \nopunct
-  \printtext[parens]{%
-    \iffieldundef{year}
-      {\printfield{urlyear}}
-      {\usebibmacro{date}}%
-    \setunit*{\addsemicolon\space}%
-    \printfield{url}%
-  }%
+  \usebibmacro{url+urldate}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
