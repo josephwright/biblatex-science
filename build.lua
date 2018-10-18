@@ -47,4 +47,6 @@ end
 
 -- Find and run the build system
 kpse.set_program_name ("kpsewhich")
-dofile (kpse.lookup ("l3build.lua"))
+if not release_date then
+  dofile(kpse.lookup("l3build.lua"))
+end
