@@ -14,14 +14,14 @@
 \RequireBibliographyStyle{numeric-comp}
 
 % Additional options
-\newtoggle{bbx:article-title}
-\DeclareBibliographyOption{article-title}[true]{%
-  \settoggle{bbx:article-title}{#1}%
+\newtoggle{bbx:articletitle}
+\DeclareBibliographyOption{articletitle}[true]{%
+  \settoggle{bbx:articletitle}{#1}%
 }
 
 % Alter settings that carry through from biblatex
 \ExecuteBibliographyOptions{
-  article-title = false ,
+  articletitle  = false ,
   giveninits            ,
   maxnames      = 5     ,
   maxcitenames  = 2     ,
@@ -217,7 +217,7 @@
   \usebibmacro{begentry}%
   \usebibmacro{author/translator+others}%
   \setunit{\labelnamepunct}\newblock
-  \iftoggle{bbx:article-title}
+  \iftoggle{bbx:articletitle}
     {\usebibmacro{title}}
     {}%
   \newunit
