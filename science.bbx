@@ -21,7 +21,7 @@
 
 % Alter settings that carry through from biblatex
 \ExecuteBibliographyOptions{
-  articletitle  = false ,
+  articletitle  = true  ,
   doi           = false ,
   giveninits            ,
   maxnames      = 5     ,
@@ -236,9 +236,9 @@
   \iftoggle{bbx:isbn}
     {\printfield{issn}}
     {}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
-  \setunit{\addspace}\newblock
+ % \newunit\newblock
+ % \usebibmacro{doi+eprint+url}%
+ % \setunit{\addspace}\newblock
   \iffieldundef{year}
     {\printfield{howpublished}}
     {\usebibmacro{issue+date}}%
@@ -283,8 +283,8 @@
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
     {}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+ % \newunit\newblock
+ % \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
@@ -451,8 +451,8 @@
   \iftoggle{bbx:isbn}
     {\printfield{isbn}}
     {}%
-  \newunit\newblock
-  \usebibmacro{doi+eprint+url}%
+%  \newunit\newblock
+%  \usebibmacro{doi+eprint+url}%
   \newunit\newblock
   \usebibmacro{addendum+pubstate}%
   \setunit{\bibpagerefpunct}\newblock
